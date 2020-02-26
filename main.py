@@ -8,6 +8,10 @@ import RPi.GPIO as IO
 IO.setmode(IO.BCM)
 import sys
 import math
+#from pynput import keyboard
+#IO.setwarnings(False)
+
+#run_flag = True
 
 
 ##position##
@@ -128,7 +132,7 @@ while True:
 				IO.output(leftpin,IO.LOW)
 			
 	
-			if math.fabs(x2-5.6) < 1 and math.fabs(y2-3.2) < 1 and targetnumber==2:
+			if math.fabs(x2-5.586) < 0.5 and math.fabs(y2-2.68) < 0.5 and targetnumber==2:
 				print 'STOP AND TURN RIGHT!!!'
 				i=0
 				while i<5:
@@ -137,10 +141,10 @@ while True:
 					IO.output(destinationpin,IO.LOW)
 					sleep(0.25)
 					i=i+1
-				x3=8.8
-				y3=-1.6
+				x3=9.318
+				y3= -1.58
 				targetnumber=3
-			if math.fabs(x2-8.8) < 1 and math.fabs(y2+1.6) < 1 and targetnumber==3:
+			if math.fabs(x2-9.318) < 1 and math.fabs(y2+1.58) < 1 and targetnumber==3:
 				print 'STOP AND TURN RIGHT!!!'
 				i=0
 				while i<5:
@@ -149,10 +153,10 @@ while True:
 					IO.output(destinationpin,IO.LOW)
 					sleep(0.25)
 					i=i+1
-				x3=5.2
-				y3=-4.1
+				x3=5.654
+				y3= -4.017
 				targetnumber=4
-			if math.fabs(x2-5.2) < 1 and math.fabs(y2+4.1) < 1 and targetnumber==4:
+			if math.fabs(x2-5.654) < 1 and math.fabs(y2+4.017) < 1 and targetnumber==4:
 				print 'STOP AND TURN RIGHT!!!'
 				i=0
 				while i<5:
@@ -161,10 +165,10 @@ while True:
 					IO.output(destinationpin,IO.LOW)
 					sleep(0.25)
 					i=i+1
-				x3=2.3
-				y3=0.1
+				x3=2.396
+				y3=0.125
 				targetnumber=1
-			if math.fabs(x2-2.3) <1 and math.fabs(y2-0.1) <1 and targetnumber==1:
+			if math.fabs(x2-2.396) < 1 and math.fabs(y2-0.125) < 1 and targetnumber==1:
 				print 'STOP, you have reached the target destination'
 				i=0
 				while i<5:
@@ -173,7 +177,7 @@ while True:
 					IO.output(destinationpin,IO.LOW)
 					sleep(0.25)
 					i=1+1
-		except KeyboardInterrupt:
+		except KeyboardInterrupt: #Not for this, use pynput
 			autonomous = 0
 
 #####manual#####
@@ -303,3 +307,10 @@ while True:
 			print("<<<  wrong data  >>>")
 			print("please enter direction key to the defined data to continue.....")
 	
+
+#Try: all your code
+
+#except keyboardinterrupt:
+#	GPIO.cleanup()
+#	sys.exit()
+

@@ -64,13 +64,13 @@ class Motorcontroller:
 		print('right @ ', i)
 		self.p2.ChangeDutyCycle(i)
 
-	def halt_turn(self):
+	def halt_turn(self, In1, In2, En, In3, In4, En2):
 		# hard turns
 		if self.forward_backward_speed == 0:
 			if self.left_right_speed < 0:
 				#hard left turn
 				print('halting hard left')
-				self.set_pin_mode(3,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+				self.set_pin_mode(3)
 				while self.left_right_speed < 0:
 					sleep(0.020)
 					self.left_right_speed += 1
@@ -79,7 +79,7 @@ class Motorcontroller:
 			elif self.left_right_speed > 0:
 				#hard right turn
 				print('halting hard right')
-				self.set_pin_mode(4,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+				self.set_pin_mode(self.set_pin_mode(4))
 				while self.left_right_speed > 0:
 					sleep(0.020)
 					self.left_right_speed -= 1
@@ -92,7 +92,7 @@ class Motorcontroller:
 			if self.left_right_speed < 0:
 				#forward left turn
 				print('halting forward left turn, resuming to forward')
-				self.set_pin_mode(1,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+				self.set_pin_mode(self.set_pin_mode(1))
 				speed_offset = self.forward_backward_speed_limit - self.left_right_speed_limit
 				while self.left_right_speed < 0:
 					sleep(0.020)
@@ -101,7 +101,7 @@ class Motorcontroller:
 			elif self.left_right_speed > 0:
 				#forward right turn
 				print('halting forward right turn, resuming to forward')
-				self.set_pin_mode(1,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+				self.set_pin_mode(self.set_pin_mode(1))
 				speed_offset = self.forward_backward_speed_limit - self.left_right_speed_limit
 				while self.left_right_speed > 0:
 					sleep(0.020)
@@ -114,7 +114,7 @@ class Motorcontroller:
 			if self.left_right_speed < 0:
 				# backward left turn
 				print('halting backward left turn, resuming to backward')
-				self.set_pin_mode(2,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+				self.set_pin_mode(self.set_pin_mode(2))
 				speed_offset = self.forward_backward_speed_limit - self.left_right_speed_limit
 				while self.left_right_speed < 0:
 					sleep(0.020)
@@ -123,7 +123,7 @@ class Motorcontroller:
 			elif self.left_right_speed > 0:
 				# backward right turn
 				print('halting backward right turn, resuming to backward')
-				self.set_pin_mode(2,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+				self.set_pin_mode(self.set_pin_mode(2))
 				speed_offset = self.forward_backward_speed_limit - self.left_right_speed_limit
 				while self.left_right_speed > 0:
 					sleep(0.020)
@@ -132,7 +132,7 @@ class Motorcontroller:
 			else:
 				print('not turning')
 
-	def turn(self, direction):
+	def turn(self, direction, In1, In2, En, In3, In4, En2):
 		if direction == "left":
 			if self.left_right_speed < 0:
 				print('already turning left')
@@ -144,7 +144,7 @@ class Motorcontroller:
 				# hard left turn
 				if self.forward_backward_speed == 0:
 					print('starting hard left')
-					self.set_pin_mode(3,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+					self.set_pin_mode(self.set_pin_mode(3))
 					while self.left_right_speed > (-1 * self.left_right_speed_limit):
 						sleep(0.020)
 						self.left_right_speed -= 1
@@ -153,7 +153,7 @@ class Motorcontroller:
 				# forward left turn
 				elif self.forward_backward_speed > 0:
 					print('starting forward left turn')
-					self.set_pin_mode(1,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+					self.set_pin_mode(self.set_pin_mode(1))
 					speed_offset = self.forward_backward_speed_limit - self.left_right_speed_limit
 					while self.left_right_speed > (-1 * self.left_right_speed_limit):
 						sleep(0.020)
@@ -161,7 +161,7 @@ class Motorcontroller:
 						self.motor_controller_l(speed_offset + (self.left_right_speed_limit - (-1 * self.left_right_speed)))
 				elif self.forward_backward_speed < 0:
 					print('starting backward left turn')
-					self.set_pin_mode(2,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+					self.set_pin_mode(self.set_pin_mode(2))
 					speed_offset = self.forward_backward_speed_limit - self.left_right_speed_limit
 					while self.left_right_speed > (-1 * self.left_right_speed_limit):
 						sleep(0.020)
@@ -178,7 +178,7 @@ class Motorcontroller:
 				# hard right turn
 				if self.forward_backward_speed == 0:
 					print('starting hard right')
-					self.set_pin_mode(4,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+					self.set_pin_mode(self.set_pin_mode(4))
 					while self.left_right_speed < self.left_right_speed_limit:
 						sleep(0.020)
 						self.left_right_speed += 1
@@ -186,7 +186,7 @@ class Motorcontroller:
 						self.motor_controller_r(self.left_right_speed)
 				elif self.forward_backward_speed > 0:
 					print('starting forward right turn')
-					self.set_pin_mode(1,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+					self.set_pin_mode(self.set_pin_mode(1))
 					speed_offset = self.forward_backward_speed_limit - self.left_right_speed_limit
 					while self.left_right_speed < self.left_right_speed_limit:
 						sleep(0.020)
@@ -194,7 +194,7 @@ class Motorcontroller:
 						self.motor_controller_r(speed_offset + (self.left_right_speed_limit - self.left_right_speed))
 				elif self.forward_backward_speed < 0:
 					print('starting backward right turn')
-					self.set_pin_mode(2,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+					self.set_pin_mode(self.set_pin_mode(2))
 					speed_offset = self.forward_backward_speed_limit - self.left_right_speed_limit
 					while self.left_right_speed < self.left_right_speed_limit:
 						sleep(0.020)
@@ -202,7 +202,7 @@ class Motorcontroller:
 						self.motor_controller_r(speed_offset + (self.left_right_speed_limit - self.left_right_speed))
 
 	# stop forward or backward movement
-	def halt_forward_backward(self):
+	def halt_forward_backward(self, In1, In2, En, In3, In4, En2):
 		if self.forward_backward_speed == 0:
 			print('no forward or backward movement detected')
 		elif self.left_right_speed == 0:
@@ -210,7 +210,7 @@ class Motorcontroller:
 			if self.forward_backward_speed > 0:
 				# stop from forward movement
 				print('halting forward movement, coming to full stop')
-				self.set_pin_mode(1,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+				self.set_pin_mode(self.set_pin_mode(1))
 				while self.forward_backward_speed > 0:
 					sleep(0.020)
 					self.forward_backward_speed -= 1
@@ -219,7 +219,7 @@ class Motorcontroller:
 			elif self.forward_backward_speed < 0:
 				# stop from backward movement
 				print('halting backward movement, coming to full stop')
-				self.set_pin_mode(2,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+				self.set_pin_mode(self.set_pin_mode(2))
 				while self.forward_backward_speed < 0:
 					sleep(0.020)
 					self.forward_backward_speed += 1
@@ -229,7 +229,7 @@ class Motorcontroller:
 			# go into hard right
 			if self.forward_backward_speed > 0:
 				print('halting forward movement, going into hard right')
-				self.set_pin_mode(1,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+				self.set_pin_mode(self.set_pin_mode(1))
 				speed_offset = self.forward_backward_speed_limit - self.left_right_speed_limit
 				while self.forward_backward_speed > 0:
 					self.forward_backward_speed -= 1
@@ -240,7 +240,7 @@ class Motorcontroller:
 				self.turn("right")
 			elif self.forward_backward_speed < 0:
 				print('halting backward movement, going into hard right')
-				self.set_pin_mode(2,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+				self.set_pin_mode(self.set_pin_mode(2))
 				speed_offset = self.forward_backward_speed_limit - self.left_right_speed_limit
  				while self.forward_backward_speed < 0:
 					self.forward_backward_speed += 1
@@ -253,7 +253,7 @@ class Motorcontroller:
 			# go into hard right
 			if self.forward_backward_speed > 0:
 				print('halting forward movement, going into hard left')
- 				self.set_pin_mode(1,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+ 				self.set_pin_mode(self.set_pin_mode(1))
 				speed_offset = self.forward_backward_speed_limit - self.left_right_speed_limit
 				while self.forward_backward_speed > 0:
 					self.forward_backward_speed -= 1
@@ -264,7 +264,7 @@ class Motorcontroller:
 				self.turn("left")
 			elif self.forward_backward_speed < 0:
 				print('halting backward movement, going into hard left')
-				self.set_pin_mode(2,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+				self.set_pin_mode(self.set_pin_mode(2))
 				speed_offset = self.forward_backward_speed_limit - self.left_right_speed_limit
 				while self.forward_backward_speed < 0:
 					self.forward_backward_speed += 1
@@ -278,7 +278,7 @@ class Motorcontroller:
 		if self.forward_backward_speed == 0:
 			if self.left_right_speed == 0:
                 		print('starting forward movement')
-				self.set_pin_mode(1,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+				self.set_pin_mode(self.set_pin_mode(1))
 				while self.forward_backward_speed < self.forward_backward_speed_limit:
 					sleep(0.020)
 					self.forward_backward_speed += 1
@@ -295,11 +295,11 @@ class Motorcontroller:
 			self.halt_forward_backward()
  			self.forward()
 
-	def backward(self):
+	def backward(self, In1, In2, En, In3, In4, En2):
 		if self.forward_backward_speed == 0:
 			if self.left_right_speed == 0:
 				print('starting backward movement')
-				self.set_pin_mode(2,self.In1,self.In2,self.En,self.In3,self.In4,self.En2)
+				self.set_pin_mode(self.set_pin_mode(2))
 				while self.forward_backward_speed > (-1 * self.forward_backward_speed_limit):
 					sleep(0.020)
 					self.forward_backward_speed -= 1

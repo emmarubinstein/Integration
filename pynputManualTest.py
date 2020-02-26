@@ -1,18 +1,18 @@
-vfrom pynput import keyboard
+from pynput import keyboard
 from time import sleep
-from motorcontrolclass import Motorcontroller:
+from motorcontrolclass import Motorcontroller
 
 import RPi.GPIO as IO
 import time
 IO.setwarnings(False)
 
 #===initialize pins===
-in1 = 6
-in2 = 5
-en = 12
-in3 = 1
-in4 = 7
-en2 = 13
+In1 = 6
+In2 = 5
+En = 12
+In3 = 1
+In4 = 7
+En2 = 13
 
 
 #IO.setmode(IO.BCM)
@@ -38,7 +38,7 @@ run_flag = True
 
 
 def on_press_func(key):
-	motor_controller = MotorController()
+	motor_controller = Motorcontroller(In1, In2, En, In3, In4, En2)
 	print(str(key.char) + " was pressed")
 
 	if key.char == 'w':
@@ -46,36 +46,43 @@ def on_press_func(key):
 		print('FORWARD')
 
 	elif key.char == 's':
-		motor_controller.backward
+		motor_controller.backward()
 		print('BACKWARD')
 	
 	elif key.char == 'a':
-		motor_controller.left_right_speed()
-		
-		
+		motor_controller.turn("left")
+
 	elif key.char == 'd':
-		mode = 4
-	
-	elif key.char == 'a':
-		mode = 5
+		motor_controller.turn("right")
 
-	elif key.char == 'r':
-		mode = 6
+	elif key.char == 'q':
+		motor_controller.halt_turn()
 
-	elif key.char == 'f':
-		mode = 7
+	elif key.char == 'e':
+		motor_controller.halt_forward_backward()
 
 	elif key.char == 'm':
-		mode = 8
+		autonomousclass.autonomous()
+		print('Switch Modes')
+		
+		
+	elif key.char == 'c':
+		p.cleanup()
 
 def on_release_func(key):
 	print(str(key.char) + " was released")
 
+#with keyboard.Listener(on_press=on_press_func, on_release=on_release_func) as listener:
+#	listener.join()
+
 kl = keyboard.Listener( on_press = on_press_func, on_release = on_release_func)
 kl.start()
 
+
 while(1):
+	kl.join()
 	sleep(0.5)
 	print(run_flag)
+
 
 
