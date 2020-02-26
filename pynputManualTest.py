@@ -36,9 +36,10 @@ En2 = 13
 
 run_flag = True
 
+motor_controller = Motorcontroller(In1, In2, En, In3, In4, En2)
 
 def on_press_func(key):
-	motor_controller = Motorcontroller(In1, In2, En, In3, In4, En2)
+	
 	print(str(key.char) + " was pressed")
 
 	if key.char == 'w':
