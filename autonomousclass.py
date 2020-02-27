@@ -1,7 +1,6 @@
 from positionclass import currentposition
 from trigclass import trig
 from ultrasonicclass import ultrasonic
-#from motorcontrolclass import motorcontrol
 from marvelmind import MarvelmindHedge
 from time import sleep
 import RPi.GPIO as IO
@@ -11,31 +10,54 @@ import math
 
 
 class autonomous():
-	#def __init__(self):
+	def __init__(self):
+
+		##position##
+		self.pos = currentposition()
+		self.pos.position()
+		self.x1 = pos.position()[1]
+		self.y1 = pos.position()[2]
+		sleep(.5)
+#		self.pos.position()
+		self.x2 = pos.position()[1]
+		self.y2 = pos.position()[2]
+		self.x3 = 5.4
+		self.y3 = 2.8
+		self.targetnumber = 2
+		self.deltaT = 1.0
+		self.hedge = MarvelmindHedge(tty="/dev/ttyACM0",adr = 16, debug=False)
+		self.hedge.start()
+
+		###TRIG###
+		self.trig = trig()
+		
+		###USS###
+
+		
 
 	def runautonomous(self):
-		IO.output(modeindicatorpin, IO.LOW)
+		self.IO.output(modeindicatorpin, IO.LOW)
 		sleep(0.5)
-		distance = ultrasonic(17,27)
-		distance.trigsettle()
+		self.distance = ultrasonic(17,27)
+		self.distance.trigsettle()
 	
 		if distance.ping() < 10:
 			print 'ALERT!!! OBJECT DETECTED!!!'
 			print('test')
 			
-		theta1 = trig.angle(x1,y1,x2,y2)
-		theta2 = trig.angle(x2,y2,x3,y3)
-		theta3 = theta2 - theta1
-		x1 = x2
-		y1 = y2
-		pos.position()
-		x2 = pos.position()[1]
-		y2 = pos.position()[2]
-#		pos_list = hedge.position_
-#		x2 = (pos_list[0][1]+pos_list[1][1]+pos_list[2][1])/3
-#		y2 = (pos_list[0][2]+pos_list[1][2]+pos_list[2][2])/3
-		TangentDisplacement = math.sqrt(math.pow(x2-x1,2)+math.pow(y2-y1,2))*math.sin(theta3)
-		TangentVelocity = TangentDisplacement/deltaT
+		self.theta1 = trig.angle(x1,y1,x2,y2)
+		self.theta2 = trig.angle(x2,y2,x3,y3)
+		self.theta3 = theta2 - theta1
+		self.x1 = x2
+		self.y1 = y2
+		self.pos.position()
+		self.x2 = pos.position()[1]
+		self.y2 = pos.position()[2]
+#		self.pos_list = hedge.position_
+#		self.x2 = (pos_list[0][1]+pos_list[1][1]+pos_list[2][1])/3
+#		self.y2 = (pos_list[0][2]+pos_list[1][2]+pos_list[2][2])/3
+		self.TangentDisplacement = math.sqrt(math.pow(x2-x1,2)+math.pow(y2-y1,2))*math.sin(theta3)
+		self.TangentVelocity = TangentDisplacement/deltaT
 		print 'X:',pos.position()[1]
 		print 'Y:',pos.position()[2]
 		print 'Angle:', theta3

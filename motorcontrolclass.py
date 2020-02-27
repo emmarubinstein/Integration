@@ -323,3 +323,8 @@ class Motorcontroller:
 		elif self.forward_backward_speed < 0:
 			print('already going backward')
 
+	def __del__(self):
+		self.p1.stop(0)
+		self.p2.stop(0)
+		IO.cleanup()
+

@@ -8,10 +8,6 @@ import RPi.GPIO as IO
 IO.setmode(IO.BCM)
 import sys
 import math
-#from pynput import keyboard
-#IO.setwarnings(False)
-
-#run_flag = True
 
 
 ##position##
@@ -20,7 +16,7 @@ pos.position()
 x1 = pos.position()[1]
 y1 = pos.position()[2]
 sleep(.5)
-pos.position()
+#pos.position()
 x2 = pos.position()[1]
 y2 = pos.position()[2]
 x3 = 5.4
