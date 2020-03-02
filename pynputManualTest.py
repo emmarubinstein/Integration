@@ -1,12 +1,13 @@
 from pynput import keyboard
 from time import sleep
 from motorcontrolclass import Motorcontroller
+from autonomousclass import autonomous
 
 import RPi.GPIO as IO
 import time
 IO.setwarnings(False)
 
-#===initialize pins===
+# Manual
 In1 = 6
 In2 = 5
 En = 12
@@ -15,6 +16,16 @@ In4 = 7
 En2 = 13
 
 motor_controller = Motorcontroller(In1, In2, En, In3, In4, En2)
+
+# Automatic
+forwardpin = 14 
+rightpin = 15
+leftpin = 18
+destinationpin = 23
+modeindicatorpin = 24
+
+autonomous = autonomous(forwardpin, rightpin, leftpin, destinationpin, modeindicatorpin)
+
 
 def on_press_func(key):
 	
@@ -32,10 +43,10 @@ def on_press_func(key):
 			print('BACKWARD')
 		
 		elif key.char == 'a':
-			motor_controller.turn("left")
+			motor_controller.turn("right")
 	
 		elif key.char == 'd':
-			motor_controller.turn("right")
+			motor_controller.turn("left")
 	
 		elif key.char == 'q':
 			motor_controller.halt_turn()
@@ -48,6 +59,8 @@ def on_press_func(key):
 			motor_controller.halt_turn()
 			motor_controller.halt_forward_backward()
 			print('switching to autonomous')
+			autonomous.runautonomous()
+
 	else:
 		if key.char == 'm':
 			auto_running = not auto_running
