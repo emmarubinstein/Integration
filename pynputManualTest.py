@@ -24,7 +24,7 @@ leftpin = 18
 destinationpin = 23
 modeindicatorpin = 24
 
-autonomous = autonomous(forwardpin, rightpin, leftpin, destinationpin, modeindicatorpin)
+#autonomous = autonomous(forwardpin, rightpin, leftpin, destinationpin, modeindicatorpin)
 
 
 def on_press_func(key):
@@ -56,18 +56,22 @@ def on_press_func(key):
 		
 		elif key.char == 'm':
 			auto_running = not auto_running
-			motor_controller.halt_turn()
-			motor_controller.halt_forward_backward()
+#			motor_controller.halt_turn()
+#			motor_controller.halt_forward_backward()
 			print('switching to autonomous')
-			autonomous.runautonomous()
+#			autonomous.runautonomous()
+#			autonomous.allow_run = 1 
+	#
+
 
 	else:
 		if key.char == 'm':
 			auto_running = not auto_running
+#			autonomous.allow_run = 0
 			print('switching to manual!!')
 
-	if key.char == chr(27):
-		print('closing this shit')
+	if key.char == 'p':
+		print('closing')
 		keyboard.Listener.stop()
 
 

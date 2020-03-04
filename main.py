@@ -269,7 +269,7 @@ while True:
 	        
 	#===ACCELERATE===#
 		elif x=='r':
-			print("acclerate")
+			print("accelerate")
 			speed=speed+5
 			p1.ChangeDutyCycle(speed)
 			p2.ChangeDutyCycle(speed)
