@@ -71,7 +71,9 @@ def on_press_func(key):
 
 	if key.char == 'p':
 		print('closing')
-		keyboard.Listener.stop()
+		motor_controller.halt_turn()
+		motor_controller.halt_forward_backward()
+#		keyboard.Listener.stop()
 
 
 def on_release_func(key):
