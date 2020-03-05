@@ -8,21 +8,21 @@ import time
 IO.setwarnings(False)
 
 # Manual
-In1 = 6
-In2 = 5
-En = 12
-In3 = 1
-In4 = 7
-En2 = 13
+In1 = 15
+In2 = 18
+En = 2
+In3 = 23
+In4 = 24
+En2 = 25
 
 motor_controller = Motorcontroller(In1, In2, En, In3, In4, En2)
 
-# Automatic
-forwardpin = 14 
-rightpin = 15
-leftpin = 18
-destinationpin = 23
-modeindicatorpin = 24
+# Autonomous
+#forwardpin = 14 
+#rightpin = 3
+#leftpin = 4
+#destinationpin = 17
+#modeindicatorpin = 27
 
 #autonomous = autonomous(forwardpin, rightpin, leftpin, destinationpin, modeindicatorpin)
 
@@ -58,16 +58,15 @@ def on_press_func(key):
 			auto_running = not auto_running
 #			motor_controller.halt_turn()
 #			motor_controller.halt_forward_backward()
-			print('switching to autonomous')
+#			print('switching to autonomous')
 #			autonomous.runautonomous()
 #			autonomous.allow_run = 1 
-	#
 
 
 	else:
 		if key.char == 'm':
 			auto_running = not auto_running
-#			autonomous.allow_run = 0
+			autonomous.allow_run = 0
 			print('switching to manual!!')
 
 	if key.char == 'p':

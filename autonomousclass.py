@@ -4,11 +4,12 @@ from ultrasonicclass import ultrasonic
 from marvelmind import MarvelmindHedge
 from motorcontrolclass import Motorcontroller
 from time import sleep
+
 import RPi.GPIO as IO
-IO.setmode(IO.BCM)
 import sys
 import math
 
+IO.setmode(IO.BCM)
 
 class autonomous():
 	def __init__(self, forwardpin, leftpin, rightpin, destinationpin, modeindicatorpin):

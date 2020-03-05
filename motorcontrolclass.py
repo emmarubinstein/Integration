@@ -17,7 +17,7 @@ class Motorcontroller:
 		self.forward_backward_speed = 0
 		self.left_right_speed = 0
 	
-		self.forward_backward_speed_limit = 40
+		self.forward_backward_speed_limit = 100
 		self.left_right_speed_limit = 30
 
 		IO.setmode(IO.BCM)
